@@ -1,17 +1,12 @@
-PYTHON = python
-PIP = pip
-
-all: install format train eval
-
 install:
-	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
+	pip install --upgrade pip
+	pip install -r requirements.txt
 
 format:
 	black *.py
 
 train:
-	$(PYTHON) train.py
+	python train.py
 
 eval:
 	echo "## Model Metrics" > report.md
