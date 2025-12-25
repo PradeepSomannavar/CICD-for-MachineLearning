@@ -32,5 +32,4 @@ push-hub:
 	huggingface-cli upload pradeepsomannavar/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
 	huggingface-cli upload pradeepsomannavar/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
-deploy:
-	hf-login push-hub
+deploy: hf-login push-hub
