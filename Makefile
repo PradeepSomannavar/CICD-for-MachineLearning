@@ -27,7 +27,7 @@ hf-login:
 	git pull origin update
 	git switch update
 	pip install -U huggingface_hub
-	python -m huggingface_hub.login --token $(HF)
+	python -m huggingface_hub.cli login --token $(HF)
 
 push-hub:
 	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
