@@ -4,3 +4,4 @@ scikit-learn
 skops
 black
 matplotlib
+gradio
