@@ -24,11 +24,20 @@ update-branch:
 
 prepare-app:
 	cp App/drug_app.py app.py
-	
+
 push-hub: prepare-app
 	pip install -U huggingface_hub
-	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./ --repo-type=space --commit-message="Deploy app"
-
+	python - << 'EOF'
+from huggingface_hub import HfApi
+api = HfApi()
+api.upload_folder(
+    folder_path=".",
+    repo_id="pradeepsomannavar/Drug-Classification",
+    repo_type="space",
+    commit_message="Deploy app"
+)
+EOF
 deploy: push-hub
+
 
 all: install format train eval update-branch deploy
