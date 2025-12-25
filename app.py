@@ -9,7 +9,7 @@ pipe = sio.load(
         "sklearn.preprocessing._encoders.OneHotEncoder",
         "sklearn.linear_model._logistic.LogisticRegression",
         "numpy.dtype",
-    ]
+    ],
 )
 
 
@@ -18,7 +18,7 @@ def predict_drug(age, sex, blood_pressure, cholesterol, na_to_k_ratio):
 
     Args:
         age (int): Age of patient
-        sex (str): Sex of patient 
+        sex (str): Sex of patient
         blood_pressure (str): Blood pressure level
         cholesterol (str): Cholesterol level
         na_to_k_ratio (float): Ratio of sodium to potassium in blood
