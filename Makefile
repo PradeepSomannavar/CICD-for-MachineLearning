@@ -1,9 +1,9 @@
 install:
-	pip install --upgrade pip &&\
+	pip install --upgrade pip && \
 	pip install -r requirements.txt
 
-format:	
-	black *.py 
+format:
+	black *.py
 
 train:
 	python train.py
@@ -11,30 +11,24 @@ train:
 eval:
 	echo "## Model Metrics" > report.md
 	cat ./Results/metrics.txt >> report.md
-	
-	echo '\n## Confusion Matrix Plot' >> report.md
-	echo '![Confusion Matrix](./Results/model_results.png)' >> report.md
-	
+	echo "" >> report.md
+	echo "## Confusion Matrix Plot" >> report.md
+	echo "![Confusion Matrix](./Results/model_results.png)" >> report.md
 	cml comment create report.md
-		
+
 update-branch:
 	git config --global user.name $(USER_NAME)
 	git config --global user.email $(USER_EMAIL)
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
 
-hf-login:
-	git pull origin update
-	git switch update
-	pip install -U huggingface_hub
-	python -m huggingface_hub.cli login --token $(HF)
 
-push-hub:
-	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./App --repo-type=space --commit-message="Sync App files"
-	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./Model --repo-type=space --commit-message="Sync Model"
-	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./Results --repo-type=space --commit-message="Sync Results"
+prepare-app:
+	cp App/drug_app.py app.py
 
+push-hub: prepare-app
+	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./ --repo-type=space --commit-message="Deploy app"
 
-deploy: hf-login push-hub
+deploy: push-hub
 
 all: install format train eval update-branch deploy
