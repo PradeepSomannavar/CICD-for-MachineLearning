@@ -20,6 +20,7 @@ update-branch:
 	git config --global user.email $(USER_EMAIL)
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
+	
 hf-login:
     git pull origin update
     git switch update
@@ -31,4 +32,5 @@ push-hub:
     huggingface-cli upload pradeepsomannavar/Drug-Classification ./Model /Model --repo-type=space --commit-message="Sync Model"
     huggingface-cli upload pradeepsomannavar/Drug-Classification ./Results /Metrics --repo-type=space --commit-message="Sync Model"
 
-deploy: hf-login push-hub
+deploy:
+	hf-login push-hub
