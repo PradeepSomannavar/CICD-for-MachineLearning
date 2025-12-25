@@ -22,11 +22,11 @@ update-branch:
 	git commit -am "Update with new results"
 	git push --force origin HEAD:update
 
-
 prepare-app:
 	cp App/drug_app.py app.py
-
+	
 push-hub: prepare-app
+	pip install -U huggingface_hub
 	python -m huggingface_hub.upload pradeepsomannavar/Drug-Classification ./ --repo-type=space --commit-message="Deploy app"
 
 deploy: push-hub
